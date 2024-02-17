@@ -13,18 +13,79 @@
   <div id="container"></div>
   
   <script type="text/babel">
+    const Menu = (props) => {
+      const increment = () => {
+        //App
+        props.onincrement()
+      }
+      const decrement = () => {
+        //App
+        if (props.count > 0) {
+          props.ondecrement()
+        }
+      }
+
+      return (
+        <li>
+          <button onClick={increment}>+</button>
+          <button onClick={decrement}>-</button>
+          {props.name} ({props.price} X {props.count}個 = {props.price * props.count}円)
+        </li>
+      )
+    }
+    const App = () => {
+      const [counts, setCounts] = React.useState([0,0,0])
+      const menus = [
+        {id:0,name: 'React本', price: 400},
+        {id:1,name: 'Redux本', price: 600},
+        {id:2,name: 'Next.js本', price: 400}
+      ]
+      const total = 
+      (menus[0].price * counts[0]) +
+      (menus[1].price * counts[1]) + 
+      (menus[2].price * counts[2])
+
+      const onincrement = (index) => {
+        const newCounts = [...counts]
+        newCounts[index]++
+        setCounts(newCounts)
+      }
+
+      const ondecrement = (index) => {
+        const newCounts = [...counts]
+        newCounts[index]--
+        setCounts(newCounts)
+      }
+
+    const menuItems = menus.map((menu) => {
+        return (
+          <Menu
+            key={menu.id}
+            count={counts[menu.id]}
+            name={menu.name}
+            price={menu.price}
+            onincrement={() => onincrement(menu.id)}
+            ondecrement={() => ondecrement(menu.id)}
+          />
+        )
+      })
+      return (
+        <div>
+          <h1>My React App</h1>
+          <ul className="menus">
+            {menuItems}
+          </ul>
+          <p>合計：{total}円</p>
+        </div>
+      )
+    }
     const container = document.getElementById('container')
     const root = ReactDOM.createRoot(container)
     root.render(
-      <>
-        <h1>Hello, React!</h1>
-        <ul className="menus">
-          <li>React</li>
-          <li>Redux</li>
-          <li>Next.js</li>
-        </ul>
-        <p>合計：0円</p>
-      </>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+
     )
   </script>
 </body>

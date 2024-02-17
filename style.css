@@ -10,7 +10,7 @@ body {
 }
 
 h1 {
-  margin: 16px 0 0;
+  margin: 16px 0 0 0;
   font-size: 20px;
   text-align: center;
 }
@@ -22,12 +22,18 @@ h1 {
 }
 
 .menus > li {
-    border : 1px solid #000;
-    padding: 10px;
-    margin-top: 16px;
-} 
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.menus button {
+  margin-right: 8px;
+  width: 24px;
+}
 
 p {
-  margin: 16px 0 0;
+  margin: 16px 0 0 0;
   text-align: right;
 }

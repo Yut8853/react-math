@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My React App</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container"></div>
+  
+  <script type="text/babel">
+    const Menu = ({ onincrement, ondecrement, name, price, count }) => (
+      <li>
+        <button onClick={onincrement}>+</button>
+        <button onClick={ondecrement} disabled={count <= 0}>-</button>
+        {name} ({price} X {count}個 = {price * count}円)
+      </li>
+    );
+  
+    const App = () => {
+      const [counts, setCounts] = React.useState([0, 0, 0]);
+      const menus = [
+        { id: 0, name: 'React本', price: 400 },
+        { id: 1, name: 'Redux本', price: 600 },
+        { id: 2, name: 'Next.js本', price: 400 }
+      ];
+  
+      const updateCount = (index, delta) => {
+        setCounts(counts => counts.map((count, i) => i === index ? Math.max(0, count + delta) : count));
+      };
+  
+      const onincrement = index => updateCount(index, 1);
+      const ondecrement = index => updateCount(index, -1);
+  
+      const total = menus.reduce((acc, menu, index) => acc + (menu.price * counts[index]), 0);
+  
+      return (
+        <div>
+          <h1>My React App</h1>
+          <ul className="menus">
+            {menus.map(menu => (
+              <Menu
+                key={menu.id}
+                count={counts[menu.id]}
+                name={menu.name}
+                price={menu.price}
+                onincrement={() => onincrement(menu.id)}
+                ondecrement={() => ondecrement(menu.id)}
+              />
+            ))}
+          </ul>
+          <p>合計：{total}円</p>
+        </div>
+      );
+    };
+  
+    const container = document.getElementById('container');
+    const root = ReactDOM.createRoot(container);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  </script>
+  
+</body>
+</html>

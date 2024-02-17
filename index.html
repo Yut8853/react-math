@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My React App</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container"></div>
+  
+  <script type="text/babel">
+    const container = document.getElementById('container')
+    const root = ReactDOM.createRoot(container)
+    root.render(
+      <>
+        <h1>Hello, React!</h1>
+        <ul>
+          <li>React</li>
+          <li>Redux</li>
+          <li>Next.js</li>
+        </ul>
+        <p>合計：0円</p>
+      </>
+    )
+  </script>
+</body>
+</html>
